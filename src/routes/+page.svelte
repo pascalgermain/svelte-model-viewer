@@ -22,24 +22,28 @@
 	}
 </script>
 
-<img {src} {style} alt="" />
-
-<br />
-<div>
-	Image : {image}
-	<div>
-		<button on:click={() => updateImage(false)}>-</button>
-		<input type="range" bind:value={image} max={imageMax} />
-		<button on:click={() => updateImage(true)}>+</button>
+<div class="flex flex-col">
+	<div class="select-none">
+		<img {src} {style} alt="" class="pointer-events-none" />
 	</div>
-</div>
 
-<br />
-<div>
-	Zoom : {zoom}
-	<div>
-		<button on:click={() => updateZoom(false)}>-</button>
-		<input type="range" bind:value={zoom} max={zoomMax} />
-		<button on:click={() => updateZoom(true)}>+</button>
+	<div class="relative inline-flex flex-col gap-6 my-6 mx-auto">
+		<div>
+			<div>Image : {image}</div>
+			<div class="inline-flex gap-1 select-none">
+				<button on:click={() => updateImage(false)}>-</button>
+				<input type="range" bind:value={image} max={imageMax} />
+				<button on:click={() => updateImage(true)}>+</button>
+			</div>
+		</div>
+
+		<div>
+			<div>Zoom : {zoom}</div>
+			<div class="inline-flex gap-1 select-none">
+				<button on:click={() => updateZoom(false)}>-</button>
+				<input type="range" bind:value={zoom} max={zoomMax} />
+				<button on:click={() => updateZoom(true)}>+</button>
+			</div>
+		</div>
 	</div>
 </div>
