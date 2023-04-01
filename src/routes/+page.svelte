@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
+
 	const size = 1920
 	const imageMax = 28
 	const zoomMax = 100
@@ -8,8 +10,16 @@
 	let zoom = 0
 	let dragStartX: number | null = null
 
-	$: src = `/images/MaisonArchi/${image}-${size}.jpg`
+	$: src = getImageSrc(image)
 	$: style = `transform: scale(${zoom / 50 + 1})`
+
+	onMount(() => {
+		for (let i = 1; i <= imageMax; i++) new Image().src = getImageSrc(i)
+	})
+
+	function getImageSrc(image: number) {
+		return `./images/MaisonArchi/${image}-${size}.jpg`
+	}
 
 	function newValue(value: number, max: number, incr: boolean) {
 		return (value + (incr ? 1 : max)) % (max + 1)
