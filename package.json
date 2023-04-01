@@ -1,7 +1,9 @@
 {
-	"name": "three-test",
-	"version": "0.0.1",
-	"private": true,
+	"name": "svelte-model-viewer",
+	"version": "1.0.0",
+	"description": "A Svelte Model viewer, made with SvelteKit.",
+	"author": "Pascal Germain <pascalgermain@me.com>",
+	"homepage": "http://pascalgermain.github.io/svelte-model-viewer",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
