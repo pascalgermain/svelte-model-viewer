@@ -2,9 +2,11 @@
 	const size = 1920
 	const imageMax = 28
 	const zoomMax = 100
+	const dragDiffMax = 12
 
 	let image = 0
 	let zoom = 0
+	let dragStartX: number | null = null
 
 	$: src = `/images/MaisonArchi/${image}-${size}.jpg`
 	$: style = `transform: scale(${zoom / 50 + 1})`
@@ -20,10 +22,41 @@
 	function updateZoom(incr: boolean) {
 		zoom = newValue(zoom, zoomMax, incr)
 	}
+
+	function getDragX(event: MouseEvent | TouchEvent) {
+		return (
+			(event as TouchEvent).touches ? (event as TouchEvent).touches[0] : (event as MouseEvent)
+		).clientX
+	}
+
+	function dragStart(event: MouseEvent | TouchEvent) {
+		dragStartX = getDragX(event)
+	}
+
+	function drag(event: MouseEvent | TouchEvent) {
+		if (dragStartX === null) return
+		const dragX = getDragX(event)
+		const dragDiff = dragX - dragStartX
+		if (Math.abs(dragDiff) <= dragDiffMax) return
+		updateImage(dragDiff > 0)
+		dragStartX = dragX
+	}
+
+	function dragEnd() {
+		dragStartX = null
+	}
 </script>
 
 <div class="flex flex-col">
-	<div class="select-none">
+	<div
+		on:mousedown={dragStart}
+		on:touchstart={dragStart}
+		on:mousemove={drag}
+		on:touchmove={drag}
+		on:mouseup={dragEnd}
+		on:touchend={dragEnd}
+		class="select-none cursor-move"
+	>
 		<img {src} {style} alt="" class="pointer-events-none" />
 	</div>
 
