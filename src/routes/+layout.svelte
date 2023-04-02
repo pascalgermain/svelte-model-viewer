@@ -1,11 +1,10 @@
 <script>
+	// The ordering of these imports is critical to your app working properly
+	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	import '@skeletonlabs/skeleton/styles/all.css'
+	// Most of your app wide CSS should be put in this file
 	import '../app.css'
 </script>
 
 <slot />
-
-<style lang="postcss">
-	:global(html) {
-		background-color: rgb(123, 181, 133);
-	}
-</style>
