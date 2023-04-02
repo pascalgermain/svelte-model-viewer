@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { RangeSlider } from '@skeletonlabs/skeleton'
 
 	const size = 1920
 	const imageMax = 28
@@ -11,7 +12,7 @@
 	let dragStartX: number | null = null
 
 	$: src = getImageSrc(image)
-	$: style = `transform: scale(${zoom / 50 + 1})`
+	$: style = `transform: scale(${zoom / 100 + 1})`
 
 	onMount(() => {
 		for (let i = 1; i <= imageMax; i++) new Image().src = getImageSrc(i)
@@ -57,7 +58,7 @@
 	}
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col items-center">
 	<div
 		on:mousedown={dragStart}
 		on:touchstart={dragStart}
@@ -65,28 +66,56 @@
 		on:touchmove={drag}
 		on:mouseup={dragEnd}
 		on:touchend={dragEnd}
-		class="select-none cursor-move"
+		class="overflow-hidden select-none cursor-move"
 	>
-		<img {src} {style} alt="" class="pointer-events-none" />
+		<img {src} alt="" class="pointer-events-none" {style} />
 	</div>
 
-	<div class="relative inline-flex flex-col gap-6 my-6 mx-auto">
-		<div>
-			<div>Image : {image}</div>
-			<div class="inline-flex gap-1 select-none">
-				<button on:click={() => updateImage(false)}>-</button>
-				<input type="range" bind:value={image} max={imageMax} />
-				<button on:click={() => updateImage(true)}>+</button>
+	<ul class="flex flex-col gap-6 my-6 card p-6 variant-soft-secondary">
+		<li>
+			<div class="flex justify-between items-center">
+				<div class="font-bold">Image</div>
+				<div class="text-xs">{image} / {imageMax}</div>
 			</div>
-		</div>
 
-		<div>
-			<div>Zoom : {zoom}</div>
-			<div class="inline-flex gap-1 select-none">
-				<button on:click={() => updateZoom(false)}>-</button>
-				<input type="range" bind:value={zoom} max={zoomMax} />
-				<button on:click={() => updateZoom(true)}>+</button>
+			<div class="flex gap-2 items-center mt-1 select-none">
+				<button
+					class="btn btn-sm variant-filled-secondary font-bold text-white"
+					on:click={() => updateImage(false)}
+				>
+					&lt;
+				</button>
+				<RangeSlider name="image" bind:value={image} max={imageMax} class="mt-1" />
+				<button
+					class="btn btn-sm variant-filled-secondary font-bold text-white"
+					on:click={() => updateImage(true)}
+				>
+					&gt;
+				</button>
 			</div>
-		</div>
-	</div>
+		</li>
+
+		<li>
+			<div class="flex justify-between items-center">
+				<div class="font-bold">Zoom</div>
+				<div class="text-xs">{zoom} / {zoomMax}</div>
+			</div>
+
+			<div class="flex gap-2 items-center mt-1 select-none">
+				<button
+					class="btn btn-sm variant-filled-secondary font-bold text-white"
+					on:click={() => updateZoom(false)}
+				>
+					&lt;
+				</button>
+				<RangeSlider name="zoom" bind:value={zoom} max={zoomMax} class="mt-1" />
+				<button
+					class="btn btn-sm variant-filled-secondary font-bold text-white"
+					on:click={() => updateZoom(true)}
+				>
+					&gt;
+				</button>
+			</div>
+		</li>
+	</ul>
 </div>
