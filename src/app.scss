@@ -1,0 +1,38 @@
+@tailwind base;
+
+@layer base {
+	html {
+		@apply min-h-full;
+	}
+
+	input[type='range'] {
+		@apply w-full appearance-none bg-transparent;
+
+		&::-webkit-slider-runnable-track {
+			@apply h-2 cursor-pointer rounded bg-secondary-300;
+		}
+
+		&::-moz-range-track {
+			@apply h-2 cursor-pointer rounded bg-secondary-300;
+		}
+
+		&::-webkit-slider-thumb {
+			@apply -mt-1.5 h-5 w-5 cursor-ew-resize appearance-none rounded-2xl bg-secondary-500;
+
+			&:hover {
+				@apply bg-secondary-400;
+			}
+		}
+
+		&::-moz-range-thumb {
+			@apply h-5 w-5 cursor-ew-resize rounded-2xl border-none bg-secondary-500;
+
+			&:hover {
+				@apply bg-secondary-400;
+			}
+		}
+	}
+}
+
+@tailwind components;
+@tailwind utilities;

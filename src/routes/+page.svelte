@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { RangeSlider } from '@skeletonlabs/skeleton'
 
 	import { objectEntries } from '$lib/utils/common'
 
@@ -53,7 +52,9 @@
 	})
 </script>
 
-<div class="flex flex-col items-center">
+<div class="flex flex-col items-center gap-6">
+	<h1 class="text-secondary-700">3D Model Viewer</h1>
+
 	<div
 		on:mousedown={dragStart}
 		on:touchstart={dragStart}
@@ -61,12 +62,12 @@
 		on:touchmove={drag}
 		on:mouseup={dragEnd}
 		on:touchend={dragEnd}
-		class="cursor-move select-none overflow-hidden"
+		class="cursor-ew-resize select-none overflow-hidden"
 	>
 		<img {src} alt="" class="pointer-events-none" {style} />
 	</div>
 
-	<ul class="card variant-soft-secondary my-6 flex flex-col gap-6 p-6">
+	<ul class="card variant-soft-secondary flex w-80 flex-col gap-6 p-6">
 		{#each objectEntries(sliders) as [name, { value, max }]}
 			<li>
 				<div class="flex items-center justify-between">
@@ -74,14 +75,14 @@
 					<div class="text-xs">{value} / {max}</div>
 				</div>
 
-				<div class="mt-1 flex select-none items-center gap-2">
+				<div class="mt-1 flex select-none items-center gap-2.5">
 					<button
 						class="btn btn-sm variant-filled-secondary font-bold text-white"
 						on:click={() => updateValue(name, false)}
 					>
 						&lt;
 					</button>
-					<RangeSlider {name} bind:value={sliders[name].value} {max} class="mt-1" />
+					<input type="range" bind:value={sliders[name].value} {max} class="mt-1" />
 					<button
 						class="btn btn-sm variant-filled-secondary font-bold text-white"
 						on:click={() => updateValue(name, true)}

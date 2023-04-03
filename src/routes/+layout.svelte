@@ -4,7 +4,9 @@
 	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
 	import '@skeletonlabs/skeleton/styles/all.css'
 	// Most of your app wide CSS should be put in this file
-	import '../app.css'
+	import '../app.scss'
 </script>
 
-<slot />
+<div class="container mx-auto my-6">
+	<slot />
+</div>
