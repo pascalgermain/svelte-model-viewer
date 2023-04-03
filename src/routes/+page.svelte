@@ -61,20 +61,20 @@
 		on:touchmove={drag}
 		on:mouseup={dragEnd}
 		on:touchend={dragEnd}
-		class="overflow-hidden select-none cursor-move"
+		class="cursor-move select-none overflow-hidden"
 	>
 		<img {src} alt="" class="pointer-events-none" {style} />
 	</div>
 
-	<ul class="flex flex-col gap-6 my-6 card p-6 variant-soft-secondary">
+	<ul class="card variant-soft-secondary my-6 flex flex-col gap-6 p-6">
 		{#each objectEntries(sliders) as [name, { value, max }]}
 			<li>
-				<div class="flex justify-between items-center">
+				<div class="flex items-center justify-between">
 					<div class="font-bold capitalize">{name}</div>
 					<div class="text-xs">{value} / {max}</div>
 				</div>
 
-				<div class="flex gap-2 items-center mt-1 select-none">
+				<div class="mt-1 flex select-none items-center gap-2">
 					<button
 						class="btn btn-sm variant-filled-secondary font-bold text-white"
 						on:click={() => updateValue(name, false)}
