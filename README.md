@@ -2,7 +2,7 @@
 
 > A Svelte Model viewer, made with SvelteKit.
 
-> http://pascalgermain.github.io/svelte-model-viewer/
+> https://pascalgermain.github.io/svelte-model-viewer/
 
 ## Project setup
 
