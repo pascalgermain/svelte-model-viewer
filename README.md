@@ -1,6 +1,6 @@
 # Svelte Model Viewer
 
-> A Svelte Model viewer, made with SvelteKit.
+> A Svelte model viewer.
 
 > https://pascalgermain.github.io/svelte-model-viewer/
 
