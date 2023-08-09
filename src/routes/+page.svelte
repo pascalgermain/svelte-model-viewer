@@ -1,4 +1,11 @@
 <script lang="ts">
+	// The ordering of these imports is critical to your app working properly
+	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	import '@skeletonlabs/skeleton/styles/all.css'
+	// Most of your app wide CSS should be put in this file
+	import '../app.scss'
+
 	import { onMount } from 'svelte'
 
 	import { objectEntries } from '$lib/utils/common'
@@ -52,45 +59,47 @@
 	})
 </script>
 
-<div class="flex flex-col items-center gap-6">
-	<h1 class="text-secondary-700">3D Model Viewer</h1>
+<div class="container mx-auto my-6">
+	<div class="flex flex-col items-center gap-6">
+		<h1 class="text-secondary-700">Svelte Model Viewer</h1>
 
-	<div
-		on:mousedown={dragStart}
-		on:touchstart={dragStart}
-		on:mousemove={drag}
-		on:touchmove={drag}
-		on:mouseup={dragEnd}
-		on:touchend={dragEnd}
-		class="cursor-ew-resize select-none overflow-hidden"
-	>
-		<img {src} alt="" class="pointer-events-none" {style} />
+		<div
+			on:mousedown={dragStart}
+			on:touchstart={dragStart}
+			on:mousemove={drag}
+			on:touchmove={drag}
+			on:mouseup={dragEnd}
+			on:touchend={dragEnd}
+			class="cursor-ew-resize select-none overflow-hidden"
+		>
+			<img {src} alt="" class="pointer-events-none" {style} />
+		</div>
+
+		<ul class="card variant-soft-secondary flex w-80 flex-col gap-6 p-6">
+			{#each objectEntries(sliders) as [name, { value, max }]}
+				<li>
+					<div class="flex items-center justify-between">
+						<div class="font-bold capitalize">{name}</div>
+						<div class="text-xs">{value} / {max}</div>
+					</div>
+
+					<div class="mt-1 flex select-none items-center gap-2.5">
+						<button
+							class="btn btn-sm variant-filled-secondary font-bold text-white"
+							on:click={() => updateValue(name, false)}
+						>
+							&lt;
+						</button>
+						<input type="range" bind:value={sliders[name].value} {max} class="mt-1" />
+						<button
+							class="btn btn-sm variant-filled-secondary font-bold text-white"
+							on:click={() => updateValue(name, true)}
+						>
+							&gt;
+						</button>
+					</div>
+				</li>
+			{/each}
+		</ul>
 	</div>
-
-	<ul class="card variant-soft-secondary flex w-80 flex-col gap-6 p-6">
-		{#each objectEntries(sliders) as [name, { value, max }]}
-			<li>
-				<div class="flex items-center justify-between">
-					<div class="font-bold capitalize">{name}</div>
-					<div class="text-xs">{value} / {max}</div>
-				</div>
-
-				<div class="mt-1 flex select-none items-center gap-2.5">
-					<button
-						class="btn btn-sm variant-filled-secondary font-bold text-white"
-						on:click={() => updateValue(name, false)}
-					>
-						&lt;
-					</button>
-					<input type="range" bind:value={sliders[name].value} {max} class="mt-1" />
-					<button
-						class="btn btn-sm variant-filled-secondary font-bold text-white"
-						on:click={() => updateValue(name, true)}
-					>
-						&gt;
-					</button>
-				</div>
-			</li>
-		{/each}
-	</ul>
 </div>
